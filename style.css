@@ -9,7 +9,7 @@ body{
 #header{
     height: 72px;
     background-color: #116466;
-    color: white;
+    color: #ffe8d2;
     font-size: 32px;
     font-weight: 900;
     display: flex;
@@ -29,13 +29,41 @@ body{
     display: flex;
     flex-direction: column;
     align-items: center;
-    color: #2c3531;
-    
+    color: #2c3531;    
 }
+
 #options-title{
     font-size: 24px;
     font-weight: bold;
     text-decoration: underline #2c3531;
+    margin-top: 0px;
+}
+
+#options-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+button{
+    border-style: solid;
+    border-width: 1px;
+    border-color: #2c3531;
+    border-radius: 10px;
+    background-color: #116466;
+    color: #ffe8d2;
+    font-size: large;
+    padding: 5px 8px;
+
+}
+button:hover{
+    background-color: #d1e8e2;
+    color: #2c3531;
+}
+button:active{
+    background-color: #116466;
+    color: #ffe8d2;
 }
 
 .slider{
