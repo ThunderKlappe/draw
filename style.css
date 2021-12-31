@@ -1,0 +1,38 @@
+body{
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #2c3531;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+#header{
+    height: 72px;
+    background-color: #116466;
+    color: white;
+    font-size: 32px;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    padding-left: 60px;
+    margin-bottom: 40px;
+}
+#canvas-container{
+    display: flex;
+    justify-content: center;
+}
+#canvas{
+    width: 500px;
+    height: 500px;
+    background-color: white;
+    display: flex;
+    flex-wrap: wrap;
+}
+.grid-piece{
+    border-style: solid;
+    border-width: 1px;
+    border-color: lightgray;
+}
+.filled{
+    background-color: black;
+}
