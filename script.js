@@ -4,6 +4,8 @@ const rangeInput = document.querySelector('#myRange');
 const sliderValue = document.querySelector('#slider-value');
 const clearButton = document.querySelector("#clear-canvas-button");
 const eraserButton = document.querySelector("#eraser-toggle");
+const colorButton = document.querySelector("#color-toggle");
+const colorPicker = document.querySelector("#pen-color");
 
 //determine size of grid
 let gridSize = rangeInput.value;
@@ -24,9 +26,11 @@ rangeInput.oninput = function() {
 //clear the canvas when the button is pressed
 clearButton.addEventListener("click", clearCanvas);
 
-//Turn on eraser when toggle is clicked.
+//Turn on toggles when button is clicked.
 let erase = false;
 eraserButton.addEventListener("click", checkToggles);
+let color = false;
+colorButton.addEventListener("click", checkToggles);
 
 
 
@@ -83,6 +87,10 @@ function changeColorBlack(e){
 function changeColorWhite(e){
     changeColor(e, "white");
 }
+function changeColorPicked(e){
+    let colorPicked = colorPicker.value;
+    changeColor(e,colorPicked);
+}
 
 //turns on the eraser toggle
 function eraserToggle(){
@@ -96,10 +104,31 @@ function eraserToggle(){
     erase = !erase;
 }
 
+//turns on the color toggle
+function colorToggle(){
+    colorButton.classList.toggle("toggled");
+    let tiles = document.querySelectorAll(".grid-piece");
+    if(!color){
+        tiles.forEach(tile => tile.addEventListener('mouseover', changeColorPicked));
+    }else{
+        tiles.forEach(tile => tile.removeEventListener('mouseover', changeColorPicked));
+    }
+    color = !color;
+}
+
 function checkToggles(e){
     let clicked = e.target.id;
     console.log(clicked);
     if(clicked == "eraser-toggle"){
+        if(color){
+            colorToggle();
+        }
         eraserToggle();
+    }
+    if(clicked == "color-toggle"){
+        if(erase){
+            eraserToggle();
+        }
+        colorToggle();
     }
 }
