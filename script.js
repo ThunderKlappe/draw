@@ -3,6 +3,7 @@ const canvas = document.querySelector("#canvas");
 const rangeInput = document.querySelector('#myRange');
 const sliderValue = document.querySelector('#slider-value');
 const clearButton = document.querySelector("#clear-canvas-button");
+const eraserButton = document.querySelector("#eraser-toggle");
 
 //determine size of grid
 let gridSize = rangeInput.value;
@@ -23,6 +24,11 @@ rangeInput.oninput = function() {
 //clear the canvas when the button is pressed
 clearButton.addEventListener("click", clearCanvas);
 
+//Turn on eraser when toggle is clicked.
+let erase = false;
+eraserButton.addEventListener("click", checkToggles);
+
+
 
 
 
@@ -42,7 +48,7 @@ function makeGrid(gridSize) {
         //500-gridSize*2 is to account for the added 1px border around each grid piece
         grid[i].style.cssText = `height: ${(500 - gridSize * 2) / gridSize}px; width: ${(500 - gridSize * 2) / gridSize}px;`;
         //add eventListener to each grid piece to look for hover.
-        grid[i].addEventListener('mouseover', changeColor);
+        grid[i].addEventListener('mouseover', changeColorBlack);
     }
 }
 
@@ -61,6 +67,39 @@ function deleteCanvas() {
 
 //if there is hover turn the grid piece background color black
 //this function changes the background color of something to black
-function changeColor(e) {
-    e.target.classList.add("filled");
+function changeColor(e, color){
+    console.log(e);
+    console.log(color);
+    e.target.style.backgroundColor = color;
+}
+
+
+//these are the functions that get added to tiles to actually call changeColor. This is
+//to be able to remove the event listeners since they aren't able to be removed if
+//the passthough function is anonymous
+function changeColorBlack(e){
+    changeColor(e, "black");
+}
+function changeColorWhite(e){
+    changeColor(e, "white");
+}
+
+//turns on the eraser toggle
+function eraserToggle(){
+    eraserButton.classList.toggle("toggled");
+    let tiles = document.querySelectorAll(".grid-piece");
+    if(!erase){
+        tiles.forEach(tile => tile.addEventListener('mouseover', changeColorWhite));
+    }else{
+        tiles.forEach(tile => tile.removeEventListener('mouseover', changeColorWhite));
+    }
+    erase = !erase;
+}
+
+function checkToggles(e){
+    let clicked = e.target.id;
+    console.log(clicked);
+    if(clicked == "eraser-toggle"){
+        eraserToggle();
+    }
 }
