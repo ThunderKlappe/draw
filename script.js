@@ -6,6 +6,7 @@ const clearButton = document.querySelector("#clear-canvas-button");
 const eraserButton = document.querySelector("#eraser-toggle");
 const colorButton = document.querySelector("#color-toggle");
 const colorPicker = document.querySelector("#pen-color");
+const rainbowButton = document.querySelector("#rainbow-toggle");
 
 //determine size of grid
 let gridSize = rangeInput.value;
@@ -31,6 +32,8 @@ let erase = false;
 eraserButton.addEventListener("click", checkToggles);
 let color = false;
 colorButton.addEventListener("click", checkToggles);
+let rainbow = false;
+rainbowButton.addEventListener('click', checkToggles);
 
 
 
@@ -91,6 +94,11 @@ function changeColorPicked(e){
     let colorPicked = colorPicker.value;
     changeColor(e,colorPicked);
 }
+function changeColorRainbow(e){
+    changeColor(e,`rgb(${Math.floor(Math.random() * (255 - 0 + 1) + 0)}, 
+                ${Math.floor(Math.random() * (255 - 0 + 1) + 0)}, 
+                ${Math.floor(Math.random() * (255 - 0 + 1) + 0)})`);
+}
 
 //turns on the eraser toggle
 function eraserToggle(){
@@ -116,6 +124,18 @@ function colorToggle(){
     color = !color;
 }
 
+//turns on the rainbow toggle
+function rainbowToggle(){
+    rainbowButton.classList.toggle("toggled");
+    let tiles = document.querySelectorAll(".grid-piece");
+    if(!rainbow){
+        tiles.forEach(tile => tile.addEventListener('mouseover', changeColorRainbow));
+    }else{
+        tiles.forEach(tile => tile.removeEventListener('mouseover', changeColorRainbow));
+    }
+    rainbow = !rainbow;
+}
+
 function checkToggles(e){
     let clicked = e.target.id;
     console.log(clicked);
@@ -123,12 +143,28 @@ function checkToggles(e){
         if(color){
             colorToggle();
         }
+        if(rainbow){
+            rainbowToggle();
+        }
         eraserToggle();
     }
     if(clicked == "color-toggle"){
         if(erase){
             eraserToggle();
         }
+        if(rainbow){
+            rainbowToggle()
+        }
         colorToggle();
     }
+    if(clicked == "rainbow-toggle"){
+        if(erase){
+            eraserToggle();
+        }
+        if(color){
+            colorToggle()
+        }
+        rainbowToggle();
+    }
+
 }

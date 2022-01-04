@@ -23,6 +23,7 @@ body{
     display: flex;
     justify-content: center;
     gap: 200px;
+    align-items: center;
 }
 #options{
     padding: 25px;
@@ -44,13 +45,11 @@ body{
 #options-container{
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
     gap: 20px;
 }
 
 button{
-    display: block;
-    width: 100%;
     border-style: solid;
     border-width: 1px;
     border-color: #2c3531;
@@ -109,13 +108,6 @@ button:active{
     flex-direction: column;
     align-items: center;
 }
-#toggle-container{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-}
-
 #pen-color{
     border: solid;
     height: 20px;
