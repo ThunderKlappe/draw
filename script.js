@@ -8,6 +8,17 @@ const colorButton = document.querySelector("#color-toggle");
 const colorPicker = document.querySelector("#pen-color");
 const rainbowButton = document.querySelector("#rainbow-toggle");
 
+//clear the canvas when the button is pressed
+clearButton.addEventListener("click", clearCanvas);
+
+//Turn on toggles when button is clicked.
+let erase = false;
+eraserButton.addEventListener("click", checkToggles);
+let color = false;
+colorButton.addEventListener("click", checkToggles);
+let rainbow = false;
+rainbowButton.addEventListener('click', checkToggles);
+
 //determine size of grid
 let gridSize = rangeInput.value;
 
@@ -24,16 +35,7 @@ rangeInput.oninput = function() {
     makeGrid(gridSize);
 };
 
-//clear the canvas when the button is pressed
-clearButton.addEventListener("click", clearCanvas);
 
-//Turn on toggles when button is clicked.
-let erase = false;
-eraserButton.addEventListener("click", checkToggles);
-let color = false;
-colorButton.addEventListener("click", checkToggles);
-let rainbow = false;
-rainbowButton.addEventListener('click', checkToggles);
 
 
 
@@ -46,6 +48,18 @@ function makeGrid(gridSize) {
     let grid = [];
     deleteCanvas();
 
+    if(color){
+        colorToggle();
+    }
+    if(rainbow){
+        rainbowToggle();
+    }
+    eraserToggle();
+    if(erase){
+        eraserToggle();
+    }
+
+    
     for (let i = 1; i <= gridSize ** 2; i++) {
         //add elements to html
         grid[i] = document.createElement('div');
@@ -56,6 +70,10 @@ function makeGrid(gridSize) {
         grid[i].style.cssText = `height: ${(500 - gridSize * 2) / gridSize}px; width: ${(500 - gridSize * 2) / gridSize}px;`;
         //add eventListener to each grid piece to look for hover.
         grid[i].addEventListener('mouseover', changeColorBlack);
+        grid[i].addEventListener('touchstart', changeColorBlack);
+        grid[i].addEventListener('touchmove', changeColorBlack);
+        
+        
     }
 }
 
