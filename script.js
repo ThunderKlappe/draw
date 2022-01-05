@@ -93,8 +93,6 @@ function deleteCanvas() {
 //if there is hover turn the grid piece background color black
 //this function changes the background color of something to black
 function changeColor(e, color){
-    console.log(e);
-    console.log(color);
     e.target.style.backgroundColor = color;
 }
 
@@ -156,7 +154,6 @@ function rainbowToggle(){
 
 function checkToggles(e){
     let clicked = e.target.id;
-    console.log(clicked);
     if(clicked == "eraser-toggle"){
         if(color){
             colorToggle();
